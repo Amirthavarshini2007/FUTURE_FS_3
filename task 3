@@ -1,1 +1,49 @@
-
+HTML:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Zomato Rebrand</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Zomato Rebrand 🍽️</h1>
+  <input type="text" id="searchInput" placeholder="Search for food, combos...">
+</header>
+<section class="banner">
+  <h2>🔥 COMBO OFFERS • FREE DELIVERY ON 1ST ORDER • 40% OFF</h2>
+</section>
+<h2 class="section-title">Combo Offers</h2>
+<div id="comboSection" class="grid"></div>
+<h2 class="section-title">Non-Veg Specials</h2>
+<div id="nonvegSection" class="grid"></div>
+<h2 class="section-title">Veg Delights</h2>
+<div id="vegSection" class="grid"></div>
+<div id="deliveryStatus" class="delivery hidden">
+  🚴 Your order is being prepared & delivered!
+</div>
+<div id="orderModal" class="modal hidden">
+  <div class="modal-content">
+    <h2>Confirm Your Order</h2>
+    <label>👤 Customer Name</label>
+    <input type="text" id="customerName" placeholder="Enter your name">
+    <label>📍 Delivery Location</label>
+    <input type="text" id="locationInput" placeholder="Enter your address">
+    <button class="detect-btn" onclick="detectLocation()">Detect My Location</button>
+    <label>💳 Mode of Payment</label>
+    <select id="paymentMode">
+      <option value="">Select Payment</option>
+      <option>Cash on Delivery</option>
+      <option>UPI</option>
+      <option>Credit / Debit Card</option>
+    </select>
+    <div class="modal-actions">
+      <button onclick="confirmOrder()">Confirm Order</button>
+      <button class="cancel" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
