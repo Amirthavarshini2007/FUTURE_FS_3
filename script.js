@@ -1,0 +1,92 @@
+const comboSection = document.getElementById("comboSection");
+const nonvegSection = document.getElementById("nonvegSection");
+const vegSection = document.getElementById("vegSection");
+const orderModal = document.getElementById("orderModal");
+const deliveryStatus = document.getElementById("deliveryStatus");
+const foods = [
+  // COMBOS
+  {name:"3 Momos Platter", img:"assets/images/combos/3momos_platter.jpg", price:199, type:"combo"},
+  {name:"Burger & Fries Combo", img:"assets/images/combos/fries_and_burger_combo.jpg", price:249, type:"combo"},
+  {name:"Momos Combo", img:"assets/images/combos/momos_combo.jpg", price:179, type:"combo"},
+  {name:"Non-Veg Combo", img:"assets/images/combos/nonveg_combo.jpg", price:299, type:"combo"},
+  {name:"Veg Combo", img:"assets/images/combos/vegcombo.jpg", price:219, type:"combo"},
+  {name:"Veg Combo Deluxe", img:"assets/images/combos/vegcombo2.jpg", price:259, type:"combo"},
+
+  // NON VEG
+  {name:"Butter Chicken & Naan", img:"assets/images/nonveg/butterchicken_naan.jpg", price:349, type:"nonveg"},
+  {name:"Chicken Burger", img:"assets/images/nonveg/chicken_burger.jpg", price:189, type:"nonveg"},
+  {name:"Cheese Chicken Burger", img:"assets/images/nonveg/chicken_cheeseburger.jpg", price:219, type:"nonveg"},
+  {name:"Chicken Fries", img:"assets/images/nonveg/chicken_fries.jpg", price:199, type:"nonveg"},
+  {name:"Loaded Chicken", img:"assets/images/nonveg/chicken_loaded.jpg", price:229, type:"nonveg"},
+  {name:"Chicken Shawarma", img:"assets/images/nonveg/chicken_shawarma.jpg", price:199, type:"nonveg"},
+  {name:"Fried Chicken Leg", img:"assets/images/nonveg/fried_chickegleg.jpg", price:179, type:"nonveg"},
+  {name:"Fried Chicken", img:"assets/images/nonveg/fried_chicken.jpg", price:249, type:"nonveg"},
+  {name:"Fried Momos", img:"assets/images/nonveg/fried_momo.jpg", price:189, type:"nonveg"},
+  {name:"Grilled Chicken", img:"assets/images/nonveg/grilled.jpg", price:279, type:"nonveg"},
+  {name:"Mayo Chicken", img:"assets/images/nonveg/mayoo_chicken.jpg", price:199, type:"nonveg"},
+  {name:"Non-Veg Pizza", img:"assets/images/nonveg/nonveg_pizza.jpg", price:299, type:"nonveg"},
+
+  // VEG
+  {name:"Cheese Pizza", img:"assets/images/veg/cheese_pizza.jpg", price:249, type:"veg"},
+  {name:"Chole Bhature", img:"assets/images/veg/cholebhature.jpg", price:159, type:"veg"},
+  {name:"Masala Dosa", img:"assets/images/veg/masala_dosa.jpg", price:129, type:"veg"},
+  {name:"Paneer Butter Masala", img:"assets/images/veg/paneer_buttermasala.jpg", price:219, type:"veg"},
+  {name:"Sandwich", img:"assets/images/veg/sandwich.jpg", price:99, type:"veg"},
+  {name:"Veg Momos", img:"assets/images/veg/veg_momos.jpg", price:149, type:"veg"},
+];
+
+function renderFoods(search = "") {
+  comboSection.innerHTML = "";
+  nonvegSection.innerHTML = "";
+  vegSection.innerHTML = "";
+
+  foods
+    .filter(f => f.name.toLowerCase().includes(search))
+    .forEach(f => {
+      const card = `
+        <div class="card">
+          <img src="${f.img}">
+          <h4>${f.name}</h4>
+          <p>₹${f.price} <span class="off">(40% OFF)</span></p>
+          <button onclick="openModal()">Order Now</button>
+        </div>
+      `;
+
+      if (f.type === "combo") comboSection.innerHTML += card;
+      if (f.type === "nonveg") nonvegSection.innerHTML += card;
+      if (f.type === "veg") vegSection.innerHTML += card;
+    });
+}
+document.getElementById("searchInput").addEventListener("input", e => {
+  renderFoods(e.target.value.toLowerCase());
+});
+function openModal() {
+  orderModal.classList.remove("hidden");
+}
+
+function closeModal() {
+  orderModal.classList.add("hidden");
+}
+
+function detectLocation() {
+  document.getElementById("locationInput").value = "Current Location Detected 📍";
+}
+
+function confirmOrder() {
+  const name = document.getElementById("customerName").value;
+  const location = document.getElementById("locationInput").value;
+  const payment = document.getElementById("paymentMode").value;
+
+  if (!name || !location || !payment) {
+    alert("Please fill all details");
+    return;
+  }
+
+  closeModal();
+  deliveryStatus.classList.remove("hidden");
+
+  setTimeout(() => {
+    deliveryStatus.classList.add("hidden");
+  }, 4000);
+}
+renderFoods();
